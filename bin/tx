@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Helper for tmux.
+#
+
+NAME=$1
+CFG=""
+
+if [[ $NAME != "" ]]; then
+    
+    EXISTS=`tmux ls 2>/dev/null | cut -d: -f1 | grep $NAME`
+
+    if [[ `uname` == "Darwin" ]]; then
+        CFG="-f $HOME/.tmux_osx.conf"
+    fi
+
+    if [ "x$EXISTS" = "x" ]; then
+        tmux $CFG new-session -d -s $NAME
+    fi
+    tmux attach-session -t $NAME
+else
+    sessions=$(tmux ls 2>/dev/null)
+    num=$(tmux ls 2>/dev/null | wc -l)
+    if [ $num -eq 1 ]; then
+        tmux attach-session -t $(echo $sessions | cut -d: -f1)
+    else
+        echo "Usage: tx session-name"
+        echo ""
+        echo "Available sessions:"
+        tmux ls 2>/dev/null
+    fi
+fi

@@ -46,6 +46,15 @@ install_git() {
 	echo "Done."
 }
 
+install_bin() {
+	echo -n "Install ~/bin..."
+	if [ ! -e ~/bin ]; then
+		mkdir ~/bin
+	fi
+	ln -s ~/.dotfiles/bin/tx ~/bin/tx
+	echo "Done."
+}
+
 uninstall() {
 	rm -rf ~/tmp
 	rm ~/.vim
@@ -54,12 +63,14 @@ uninstall() {
 	rm ~/.gitignore_global
 	rm ~/.git_template
 	rm ~/.gitconfig
+	rm ~/bin/tx
 }
 
 if [[ $1 == "uninstall" ]]; then
 	uninstall
 else
 	install_bash
+	install_bin
 	install_git
 	install_vim
 	git submodule init

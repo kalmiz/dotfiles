@@ -1,0 +1,37 @@
+
+snippet cakeSsoSclick
+    package com.kinja.api.slickmodel.sso.repository
+
+    import scala.slick.driver.ExtendedProfile
+
+    import com.kinja.common.db.Id
+    import com.kinja.api.slickmodel.dependencies.IdGeneration
+    import com.kinja.api.slickmodel.dependencies.KeyGenerator
+    import com.kinja.common.db.slick._
+    import com.kinja.api.slickmodel.sso.SaltAlias
+
+    class ${1:modelName}Repository extends SsoRepository[$1] with Mappers {
+        self: ExtendedProfile with ConnectionPools with IdGeneration with KeyGenerator =>
+
+        import simple._
+        import Database.threadLocalSession
+
+        val tableName: String = "${2:tableName}"
+
+        class $1Table extends SsoTable {
+            def id = column[Id]("id", O.PrimaryKey)
+
+            def apply(id: Option[Id]): $1 = $1(id, alias, rounds, salt, stored = true)
+
+            def unapply(model: $1): Option[(Option[Id])] = Some((model.id))
+
+            def * = id.? ~  <> (apply _, unapply _)
+        }
+
+        lazy val table = new $1Table
+
+        def withId(model: $1, id: Option[Id]): $1 = model.copy(id = id)
+
+        def withStored(model: $1): $1 = model.copy(stored = true)
+
+    }

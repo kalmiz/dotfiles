@@ -1,0 +1,370 @@
+
+set nocompatible               " Be iMproved
+
+if has('vim_starting')
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Recommended to install
+" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+"NeoBundle 'Shougo/vimproc'
+"NeoBundle 'Shougo/vimproc', {
+      "\ 'build' : {
+      "\     'windows' : 'make -f make_mingw32.mak',
+      "\     'cygwin' : 'make -f make_cygwin.mak',
+      "\     'mac' : 'make -f make_mac.mak',
+      "\     'unix' : 'make -f make_unix.mak',
+      "\    },
+      "\ }
+
+" My Bundles here:
+"
+" Note: You don't set neobundle setting in .gvimrc!
+" Original repos on github
+if has("lua")
+	NeoBundle 'Shougo/neocomplete'
+endif
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-sensible'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'ciaranm/securemodelines'
+NeoBundle 'duganchen/vim-soy'
+NeoBundle 'godlygeek/tabular'
+"NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'duff/vim-scratch'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'bling/vim-bufferline'
+"NeoBundle 'mhinz/vim-signify'
+"NeoBundle 'myusuf3/numbers.vim'
+NeoBundle 'Align'
+NeoBundle 'SQLUtilities'
+NeoBundle 'dbext.vim'
+NeoBundle 'matchit.zip'
+NeoBundle 'aghareza/vim-gitgrep'
+NeoBundle 'ardagnir/united-front'
+
+" PHP support
+NeoBundle "shawncplus/phpcomplete.vim"
+
+if has("python")
+	NeoBundle 'wakatime/vim-wakatime'
+endif
+
+
+filetype plugin indent on     " Required!
+"
+" Brief help
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
+" Installation check.
+NeoBundleCheck
+
+set title
+set t_Co=256
+set term=xterm-256color
+"set t_ti= t_te=
+set visualbell
+set nobackup
+set nowb
+set dir=~/tmp/vim
+set bs=2
+set nowrap
+set sidescroll=1
+set sidescrolloff=6
+set ruler
+set showcmd
+set smartindent
+set cindent
+set ai
+set ignorecase
+set smartcase
+set incsearch
+set nowrapscan
+set noet
+set sw=4
+set ts=4
+set softtabstop=4
+set ffs=unix,dos
+set hidden
+set tag=.tags
+set pastetoggle=<F10>
+set fen
+set termencoding=utf-8
+set eol
+set binary
+set lazyredraw
+set nomodeline
+"set mouse=a
+set switchbuf=useopen,usetab
+if &term =~ '256color'
+  " Disable Background Color Erase (BCE) so that color schemes
+  " work properly when Vim is used inside tmux and GNU screen.
+  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
+syntax on
+set bg=dark
+"color kalmi
+color murphy
+highlight Folded ctermbg=black
+
+" Bare bone navigation
+set path=src/**,app/**,application/**,public/**,conf/**,subprojects/*/src/**
+set suffixesadd=.java,.scala,.php
+set wildmode=full
+set wildignore+=*.class
+set wildignore+=*.jar
+set wildmenu
+
+let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
+nnoremap ! :find 
+nnoremap <Leader>k :tag 
+nnoremap <Leader>l :buffers<CR>:buffer<Space>
+nnoremap <Leader>b :b 
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>j :bp<CR>
+nnoremap <Leader>. :Ex<CR> 
+
+" Run ack with word under cursor
+fun! AckWord()
+	exe "Ack --" . &filetype . " " . expand("<cword>")
+endfun
+
+command AckWord call AckWord()
+
+nnoremap <leader>a :Ack --
+nnoremap <leader>A :AckWord<CR>
+
+" focus window
+nnoremap <C-w>z :tab sp<CR>
+
+nnoremap <D-1> 1gt
+nnoremap <D-2> 2gt
+nnoremap <D-3> 3gt
+nnoremap <D-4> 4gt
+nnoremap <D-5> 5gt
+nnoremap <D-6> 6gt
+nnoremap <D-7> 7gt
+nnoremap <D-8> 8gt
+nnoremap <D-9> 9gt
+
+" splits
+set splitbelow
+set splitright
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+if exists('$TMUX')
+  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+    let previous_winnr = winnr()
+    execute "wincmd " . a:wincmd
+    if previous_winnr == winnr()
+      " The sleep and & gives time to get back to vim so tmux's focus tracking
+      " can kick in and send us our ^[[O
+      execute "silent !sh -c 'sleep 0.01; tmux select-pane -" . a:tmuxdir . "' &"
+      redraw!
+    endif
+  endfunction
+  let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+  let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+  let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+else
+	nnoremap <C-j> <C-W><C-j>
+	nnoremap <C-k> <C-W><C-k>
+	nnoremap <C-l> <C-W><C-l>
+	nnoremap <C-h> <C-W><C-h>
+endif
+
+" fix misspelled return
+abbr retrun return
+
+au BufNewFile,BufRead /tmp/sql*     setf sql
+
+"let g:user_zen_leader_key = '<C-y>'
+let g:use_zen_complete_tag = 1
+
+" Disable stupid syntastic scala plugin
+let loaded_scala_syntax_checker = 1
+let loaded_java_syntax_checker = 1
+
+let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_type_javascript = {
+    \ 'ctagsbin'  : 'jsctags',
+    \ 'ctagsargs' : '-f -'
+\ }
+
+let mapleader = ","
+imap jj <Esc>
+nnoremap <Space> <PageDown>
+"nnoremap <silent> <Space> :call EasyMotion#F(0,0)<CR>
+"nnoremap <silent> <S-Space> :call EasyMotion#F(0,1)<CR>
+
+" Map Q to repeat the last recorded macro
+map Q @@
+
+" Increment/decrement in tmux
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+" save
+map <Leader>w :update<CR>
+" close window
+map <Leader>q :q<CR>
+" quit vim
+map <Leader>Q :qall!<CR>
+
+map <C-w>a :q<CR>
+
+" Open a Quickfix window for the last search.
+nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
+" Copy - Paste
+vnoremap <silent> <Leader>y "+y
+nmap <silent> <Leader>h :set paste<CR>"+p:set nopaste<CR>
+
+" reselect pasted text
+nnoremap <leader>v V`]
+
+" open scratch buffer
+nnoremap <Leader><Tab> :Scratch<CR>
+
+" toggle tagbar
+nnoremap <Leader>t :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+
+" make F2 save
+nmap <silent> <F2> <ESC>:w<CR>
+imap <silent> <F2> <C-o>:w<CR>
+
+autocmd FileType text setlocal textwidth=78
+autocmd FileType mail setlocal textwidth=0
+autocmd FileType mail setlocal wrapmargin=72
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event
+"  handler (happens when dropping a file on gvim).
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+augroup END
+
+if has("statusline")
+  set statusline=%F\ %m%r%=%{fugitive#statusline()}[%-{&fenc}]\ [%{&ff}]\ [%Y]\ [%06l,%03v][%03p%%]
+  set laststatus=2
+endif
+
+" fugitive settings
+autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+
+map <F1> :Gstatus<CR>
+
+" Tabular.vim
+"noremap <Leader>a= :Tabularize /=<CR>
+"noremap <Leader>a> :Tabularize /=><CR>
+"noremap <Leader>a- :Tabularize /-><CR>
+"noremap <Leader>a: :Tabularize /:<CR>
+
+let g:Grep_Find_Use_Xargs = 0
+
+" JSLint
+" let g:syntastic_javascript_jslint_conf = "--eqeq --sloppy --continue --vars --nomen --white"
+let g:syntastic_javascript_jslint_conf =  "--es5=false --nomen --plusplus --regexp --unparam"
+
+let g:syntastic_mode_map = { 'mode': 'active', 
+			\ 'passive_filetypes': ['java', 'scala'] }
+
+let g:syntastic_javascript_checker = 'jslint'
+let g:syntastic_javascript_checkers = ['jslint']
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_loc_list=1
+
+if filereadable($HOME . "/.vimrc_local")
+    source ~/.vimrc_local
+endif
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: "\<TAB>"
+
+let g:airline_enable_branch = 1
+let g:airline_enable_syntastic = 1
+
+if has("persistent_undo")
+	set undodir='/Users/kalmi/tmp/vim/undotree'
+	set undofile
+endif
+
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+
+" neocomplete
+
+if has("lua")
+	" Disable AutoComplPop.
+	let g:acp_enableAtStartup = 0
+	" Use neocomplete.
+	let g:neocomplete#enable_at_startup = 1
+	" Use smartcase.
+	let g:neocomplete#enable_smart_case = 1
+	" Set minimum syntax keyword length.
+	let g:neocomplete#sources#syntax#min_keyword_length = 3
+	let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+	let g:neocomplete#ctags_command = '/usr/local/bin/ctags'
+
+	" Define dictionary.
+	let g:neocomplete#sources#dictionary#dictionaries = {
+		\ 'default' : '',
+		\ 'vimshell' : $HOME.'/.vimshell_hist',
+		\ 'scheme' : $HOME.'/.gosh_completions'
+			\ }
+
+	" Define keyword.
+	if !exists('g:neocomplete#keyword_patterns')
+		let g:neocomplete#keyword_patterns = {}
+	endif
+	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+	" Enable omni completion.
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	"autocmd FileType php setlocal omnifunc=phpcomplete#Complete
+	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+endif

@@ -18,4 +18,5 @@ uninstall() {
 }
 
 git submodule init
+git submodule update
 install_vim

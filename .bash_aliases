@@ -11,6 +11,6 @@ if [[ `uname` = "Darwin" ]]; then
 		alias vim="/Applications/MacVim.app/Contents/MacOS/Vim --servername local"
 	fi
 else
-	alias vi="vim -u ~/.vim/vimrc"
+	alias vi="vi -u ~/.vim/vimrc"
 	alias vim="vim -u ~/.vim/vimrc"
 fi

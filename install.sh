@@ -51,7 +51,20 @@ install_bin() {
 	if [ ! -e ~/bin ]; then
 		mkdir ~/bin
 	fi
-	ln -s ~/.dotfiles/bin/tx ~/bin/tx
+	if [ ! -e ~/bin/tx ]; then
+		ln -s ~/.dotfiles/bin/tx ~/bin/tx
+	fi
+	echo "Done."
+}
+
+install_tmux() {
+	echo -n "Install TMUX..."
+	if [ ! -e ~/.tmux.conf ]; then
+		ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
+	fi
+	if [ ! -e ~/.tmux_osx.conf ]; then
+		ln -s ~/.dotfiles/.tmux_osx.conf ~/.tmux_osx.conf
+	fi
 	echo "Done."
 }
 
@@ -64,6 +77,8 @@ uninstall() {
 	rm ~/.git_template
 	rm ~/.gitconfig
 	rm ~/bin/tx
+	rm ~/.tmux.conf
+	rm ~/.tmux_osx.conf
 }
 
 if [[ $1 == "uninstall" ]]; then
@@ -73,6 +88,7 @@ else
 	install_bin
 	install_git
 	install_vim
+	install_tmux
 	git submodule init
 	git submodule update
 fi

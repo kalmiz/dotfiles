@@ -17,6 +17,15 @@ install_bash() {
 	if [ ! -e ~/.bash_aliases ]; then
 		ln -s ~/.dotfiles/.bash_aliases ~/.bash_aliases
 	fi
+	
+	if [ ! -e ~/.bashrc ]; then
+		ln -s ~/.dotfiles/.bashrc ~/.bashrc
+		if [ ! -e ~/.bash_profile ]; then
+			echo "if [ -e ~/.bashrc ]; then source ~/.bashrc; fi;" > ~/.bash_profile
+		fi 
+	else 
+		echo ".bashrc already exists, please remove it or just run uninstall"
+	fi
 	echo "Done."
 }
 
@@ -24,9 +33,14 @@ uninstall() {
 	rm -rf ~/tmp
 	rm ~/.vim
 	rm ~/.bash_aliases
+	rm ~/.bashrc
 }
 
-git submodule init
-git submodule update
-install_bash
-install_vim
+if [[ $1 == "uninstall" ]]; then
+	uninstall
+else
+	git submodule init
+	git submodule update
+	install_bash
+	install_vim
+fi

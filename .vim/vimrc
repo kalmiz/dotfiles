@@ -65,7 +65,7 @@ NeoBundle 'ardagnir/united-front'
 " PHP support
 NeoBundle "shawncplus/phpcomplete.vim"
 
-if has("python")
+if has("python") && has("mac")
 	NeoBundle 'wakatime/vim-wakatime'
 endif
 

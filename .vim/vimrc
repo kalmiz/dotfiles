@@ -276,6 +276,8 @@ autocmd BufReadPost *
     \ endif
 augroup END
 
+let g:bufferline_echo = 0
+
 if has("statusline")
   set statusline=%F\ %m%r%=%{fugitive#statusline()}[%-{&fenc}]\ [%{&ff}]\ [%Y]\ [%06l,%03v][%03p%%]
   set laststatus=2

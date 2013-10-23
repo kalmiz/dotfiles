@@ -22,9 +22,26 @@ install_bash() {
 		ln -s ~/.dotfiles/.bashrc ~/.bashrc
 		if [ ! -e ~/.bash_profile ]; then
 			echo "if [ -e ~/.bashrc ]; then source ~/.bashrc; fi;" > ~/.bash_profile
-		fi 
-	else 
-		echo ".bashrc already exists, please remove it or just run uninstall"
+		else
+			echo
+			echo "~/.bash_profile is already exists. Please, make sure that it's source ~/.bashrc"
+		fi
+	else
+		echo ".bashrc already exists. Please remove it or just run uninstall"
+	fi
+	echo "Done."
+}
+
+install_git() {
+	echo -n "Install GIT..."
+	if [ ! -e ~/.gitconfig ]; then
+		ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
+	fi
+	if [ ! -e ~/.gitignore_global ]; then
+		ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
+	fi
+	if [ ! -e ~/.git_template ]; then
+		ln -s ~/.dotfiles/.git_template ~/.git_template
 	fi
 	echo "Done."
 }
@@ -34,13 +51,17 @@ uninstall() {
 	rm ~/.vim
 	rm ~/.bash_aliases
 	rm ~/.bashrc
+	rm ~/.gitignore_global
+	rm ~/.git_template
+	rm ~/.gitconfig
 }
 
 if [[ $1 == "uninstall" ]]; then
 	uninstall
 else
+	install_bash
+	install_git
+	install_vim
 	git submodule init
 	git submodule update
-	install_bash
-	install_vim
 fi

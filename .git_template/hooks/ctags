@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+PATH="/usr/local/bin:$PATH"
+# if ctags is installed, use it
+if hash ctags 2>/dev/null; then
+	trap "rm -f .git/tags.$$" EXIT
+	ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql --scala-kinds=cot --java-kinds=ci --php-kinds=cdf --exclude=target/* --exclude=bin/*
+	mv .git/tags.$$ .git/tags
+fi

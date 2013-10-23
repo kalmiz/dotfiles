@@ -1,0 +1,24 @@
+[user]
+	name = Zoltan Kalmar
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"\t%h %ad | %s%d [%an]\" --graph --date=iso
+    type = cat-file -t
+    dump = cat-file -p
+    pick = cherry-pick
+    dstat = diff --stat=120,120 # moge kell irni egy branchet. Pl.: git dstat master
+    pl = pull --rebase --all --verbose
+    pull = pull --rebase --all --verbose
+    pom = push origin master
+[github]
+	user = kalmiz
+[core]
+	quotepath = false
+	excludesfile = /Users/kalmi/.gitignore_global
+[web]
+	browser = open
+[init]
+	templatedir = ~/.git_template

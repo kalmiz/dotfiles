@@ -17,4 +17,5 @@ uninstall() {
 	rm ~/.vim
 }
 
+git submodule init
 install_vim

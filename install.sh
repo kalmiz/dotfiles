@@ -2,7 +2,7 @@
 
 # VIM
 install_vim() {
-	echo "Install VIM..."
+	echo -n "Install VIM... "
 	if [ ! -d ~/tmp/vim ]; then
 		mkdir -p ~/tmp/vim/undotree
 	fi
@@ -12,11 +12,21 @@ install_vim() {
 	echo "Done."
 }
 
+install_bash() {
+	echo -n "Install Bash... "
+	if [ ! -e ~/.bash_aliases ]; then
+		ln -s ~/.dotfiles/.bash_aliases ~/.bash_aliases
+	fi
+	echo "Done."
+}
+
 uninstall() {
 	rm -rf ~/tmp
 	rm ~/.vim
+	rm ~/.bash_aliases
 }
 
 git submodule init
 git submodule update
+install_bash
 install_vim

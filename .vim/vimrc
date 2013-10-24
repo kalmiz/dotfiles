@@ -130,6 +130,7 @@ set bg=dark
 color murphy
 highlight Folded ctermbg=black
 
+let mapleader = ","
 " Bare bone navigation
 set path=src/**,app/**,application/**,public/**,conf/**,subprojects/*/src/**
 set suffixesadd=.java,.scala,.php
@@ -154,8 +155,8 @@ endfun
 
 command AckWord call AckWord()
 
-nnoremap <leader>a :Ack --
-nnoremap <leader>A :AckWord<CR>
+nnoremap <Leader>a :Ack --
+nnoremap <Leader>A :AckWord<CR>
 
 " focus window
 nnoremap <C-w>z :tab sp<CR>
@@ -220,7 +221,6 @@ let g:tagbar_type_javascript = {
     \ 'ctagsargs' : '-f -'
 \ }
 
-let mapleader = ","
 imap jj <Esc>
 nnoremap <Space> <PageDown>
 "nnoremap <silent> <Space> :call EasyMotion#F(0,0)<CR>

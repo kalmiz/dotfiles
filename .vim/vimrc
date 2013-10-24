@@ -234,6 +234,8 @@ nnoremap - <C-x>
 
 " save
 map <Leader>w :update<CR>
+" Editing a protected file as 'sudo'
+cmap W w !sudo tee % >/dev/null<CR>
 " close window
 map <Leader>q :q<CR>
 " quit vim

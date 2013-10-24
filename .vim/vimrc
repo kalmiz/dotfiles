@@ -26,6 +26,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "
 " Note: You don't set neobundle setting in .gvimrc!
 " Original repos on github
+NeoBundle 'tpope/vim-sensible'
 if has("lua")
 	NeoBundle 'Shougo/neocomplete'
 endif
@@ -34,7 +35,6 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-sensible'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -60,7 +60,6 @@ NeoBundle 'SQLUtilities'
 NeoBundle 'dbext.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'aghareza/vim-gitgrep'
-NeoBundle 'ardagnir/united-front'
 
 " PHP support
 NeoBundle "shawncplus/phpcomplete.vim"
@@ -221,7 +220,7 @@ let g:tagbar_type_javascript = {
     \ 'ctagsargs' : '-f -'
 \ }
 
-imap jj <Esc>
+"imap jj <Esc>
 nnoremap <Space> <PageDown>
 "nnoremap <silent> <Space> :call EasyMotion#F(0,0)<CR>
 "nnoremap <silent> <S-Space> :call EasyMotion#F(0,1)<CR>

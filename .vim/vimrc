@@ -285,6 +285,11 @@ if has("statusline")
 endif
 
 " fugitive settings
+noremap <Leader>gg :Git 
+noremap <Leader>gh :Git push 
+noremap <Leader>gl :Git pull 
+noremap <Leader>gs :Gstatus<CR>
+
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |

@@ -1,0 +1,6 @@
+--ignore-dir=public/3rdpartyFramebusters
+--ignore-dir=public/javascripts/lib/
+--ignore-dir=target/
+--ignore-dir=library/
+--ignore-dir=logs/
+--type-add=javascript:ext:js

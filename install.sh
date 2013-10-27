@@ -54,6 +54,9 @@ install_bin() {
 	if [ ! -e ~/bin/tx ]; then
 		ln -s ~/.dotfiles/bin/tx ~/bin/tx
 	fi
+	if [ ! -e ~/.ackrc ]; then
+		ln -s ~/.dotfiles/.ackrc ~/.ackrc
+	fi
 	echo "Done."
 }
 

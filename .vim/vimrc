@@ -131,7 +131,7 @@ highlight Folded ctermbg=black
 
 let mapleader = ","
 " Bare bone navigation
-set path=src/**,app/**,application/**,public/**,conf/**,subprojects/*/src/**
+set path=src/**,app/**,application/**,public/**,conf/**,subprojects/*/src/**,*/src/**
 set suffixesadd=.java,.scala,.php
 set wildmode=full
 set wildignore+=*.class
@@ -188,9 +188,9 @@ if exists('$TMUX')
       redraw!
     endif
   endfunction
-  "let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+  let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
   let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-  "let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+  let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
   nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
   nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
   nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
@@ -234,8 +234,13 @@ nnoremap - <C-x>
 
 " save
 map <Leader>w :update<CR>
+
 " Editing a protected file as 'sudo'
-cmap W w !sudo tee % >/dev/null<CR>
+fun! SuWrite()
+    execute ":w !sudo tee " . expand("%") . " >/dev/null"
+endfun
+command W call SuWrite()
+
 " close window
 map <Leader>q :q<CR>
 " quit vim

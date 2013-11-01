@@ -7,7 +7,7 @@ fi
 
 # User specific aliases and functions
 export PS1="\[\033]0;\w\007\]$PS1"
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export TERM="xterm-256color"
 if [ -d "/Applications/MacVim.app" ]; then
 	export EDITOR="/Applications/MacVim.app/Contents/MacOS/Vim --servername local"

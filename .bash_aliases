@@ -4,6 +4,7 @@ alias ll="ls -al"
 alias gmlog='git log --pretty=format:"%ad | %h | %s [%an]" --date=iso --since=-40days | sort | grep'
 
 if [[ `uname` = "Darwin" ]]; then
+	alias mvims="mvim --servername `basename \`pwd\`` ."
 	# Get OS X Software Updates, and update Homebrew, npm, and their installed packages
 	alias update='sudo softwareupdate -i -a; brew update; brew upgrade; npm update npm -g; npm update -g'
 	if [ -d "/Applications/MacVim.app" ]; then

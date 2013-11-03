@@ -4,3 +4,4 @@
 --ignore-dir=library/
 --ignore-dir=logs/
 --type-add=javascript:ext:js
+--type-set=soy:ext:soy

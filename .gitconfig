@@ -1,5 +1,6 @@
 [user]
 	name = Zoltan Kalmar
+	email = kalmiz@gmail.com
 [alias]
     co = checkout
     ci = commit
@@ -22,3 +23,8 @@
 	browser = open
 [init]
 	templatedir = ~/.git_template
+[push]
+	default = simple
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f

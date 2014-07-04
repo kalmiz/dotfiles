@@ -1,7 +1,16 @@
 --ignore-dir=public/3rdpartyFramebusters
 --ignore-dir=public/javascripts/lib/
+--ignore-dir=modules/ssoadmin/public/javascripts/lib/
 --ignore-dir=target/
 --ignore-dir=library/
 --ignore-dir=logs/
+--ignore-dir=build/
+--ignore-dir=.ensime/
+--ignore-dir=.ensime_lucene/
+--ignore-dir=public/demo/
 --type-add=javascript:ext:js
 --type-set=soy:ext:soy
+--type-set=sbt:ext:sbt
+--type-set=scss:ext:scss
+--ignore-file=is:TAGS
+--ignore-file=is:r.js
